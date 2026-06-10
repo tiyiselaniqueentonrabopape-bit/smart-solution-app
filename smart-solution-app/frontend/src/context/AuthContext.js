@@ -1,8 +1,10 @@
 import { createContext, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 
+// ===== SET BASE URL FOR ALL API CALLS =====
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 const AuthContext = createContext();
-const API_URL = process.env.REACT_APP_API_URL;
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -26,9 +28,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Step 1: Register with all details + password
   const register = async (formData) => {
     try {
-      const { data: res } = await axios.post(`${API_URL}/api/auth/register`, formData);
+      const { data: res } = await axios.post('/api/auth/register', formData);
       setPendingEmail(res.email);
       return { success: true, message: res.message };
     } catch (error) {
@@ -36,9 +39,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Step 2: Verify OTP and create account
   const verifyEmail = async (otp) => {
     try {
-      const { data: res } = await axios.post(`${API_URL}/api/auth/verify-email`, {
+      const { data: res } = await axios.post('/api/auth/verify-email', {
         email: pendingEmail,
         otp
       });
@@ -50,18 +54,20 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Resend OTP
   const resendOTP = async () => {
     try {
-      const { data: res } = await axios.post(`${API_URL}/api/auth/resend-otp`, { email: pendingEmail });
+      const { data: res } = await axios.post('/api/auth/resend-otp', { email: pendingEmail });
       return { success: true, message: res.message };
     } catch (error) {
       return { success: false, message: error.response?.data?.message || 'Failed to resend' };
     }
   };
 
+  // Login with email/username/phone + password
   const login = async (loginId, password) => {
     try {
-      const { data: res } = await axios.post(`${API_URL}/api/auth/login`, { loginId, password });
+      const { data: res } = await axios.post('/api/auth/login', { loginId, password });
       setAuthUser(res);
       return { success: true, role: res.role };
     } catch (error) {
@@ -74,6 +80,7 @@ export const AuthProvider = ({ children }) => {
     setPendingEmail(null);
   };
 
+  // Axios interceptor for JWT
   useEffect(() => {
     if (user?.token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
