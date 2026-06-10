@@ -56,7 +56,7 @@ const ContactPage = () => {
 
   if (done) return (
     <div style={{ minHeight: "80vh", display: "flex", alignItems: "center", justifyContent: "center", background: C.offWhite, padding: "40px 24px" }}>
-      <div style={{ background: "white", borderRadius: 24, padding: "64px 48px", textAlign: "center", maxWidth: 500, boxShadow: "0 8px 48px rgba(0,0,0,0.08)" }}>
+      <div style={{ background: "white", borderRadius: 24, padding: "64px 48px", textAlign: "center", maxWidth: 500, boxShadow: "0 8px 48px rgba(0,0,0,0.08)", width: "100%" }}>
         <div style={{ width: 80, height: 80, background: "rgba(5,150,105,0.1)", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px" }}>
           <CheckCircle size={40} color={C.success} />
         </div>
@@ -72,11 +72,35 @@ const ContactPage = () => {
 
   return (
     <div>
+      <style>{`
+        /* ========== CONTACT PAGE MOBILE FIXES ========== */
+        @media (max-width: 768px) {
+          .contact-hero-title { font-size: 48px !important; }
+          .contact-hero-desc { font-size: 16px !important; max-width: 100% !important; }
+
+          .contact-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+
+          .contact-info h2 { font-size: 32px !important; }
+          .contact-info p { font-size: 15px !important; }
+          .contact-info-item { gap: 12px !important; }
+          .contact-info-item > div:first-child { width: 40px !important; height: 40px !important; }
+          .contact-info-item a, .contact-info-item span { font-size: 16px !important; }
+
+          .service-areas { padding: 20px !important; }
+          .service-areas span { font-size: 11px !important; padding: "3px 10px" !important; }
+
+          .contact-form { padding: 28px 20px !important; }
+          .contact-form h2 { font-size: 30px !important; }
+          .contact-form-grid { grid-template-columns: 1fr !important; gap: 12px !important; }
+          .contact-form button { font-size: 16px !important; padding: 16px !important; }
+        }
+      `}</style>
+
       <section style={{ background: `linear-gradient(135deg,${C.navy},${C.navyLight})`, padding: "100px 24px 72px", position: "relative" }}>
         <div style={{ maxWidth: 1280, margin: "0 auto", textAlign: "center" }}>
           <div style={{ color: C.orange, fontWeight: 700, fontSize: 12, letterSpacing: 3, textTransform: "uppercase", marginBottom: 14 }}>Contact</div>
-          <h1 style={{ fontFamily: C.FD, fontSize: 72, color: "white", marginBottom: 18 }}>GET IN TOUCH</h1>
-          <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 18, maxWidth: 600, margin: "0 auto" }}>Request a free quote or ask us anything about your electrical project.</p>
+          <h1 className="contact-hero-title" style={{ fontFamily: C.FD, fontSize: 72, color: "white", marginBottom: 18 }}>GET IN TOUCH</h1>
+          <p className="contact-hero-desc" style={{ color: "rgba(255,255,255,0.6)", fontSize: 18, maxWidth: 600, margin: "0 auto" }}>Request a free quote or ask us anything about your electrical project.</p>
         </div>
         <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, lineHeight: 0 }}>
           <svg viewBox="0 0 1440 40" style={{ width: "100%", display: "block" }} preserveAspectRatio="none"><path d="M0 20 Q360 0 720 20 Q1080 40 1440 10 L1440 40 L0 40 Z" fill={C.offWhite} /></svg>
@@ -84,9 +108,9 @@ const ContactPage = () => {
       </section>
 
       <section style={{ padding: "80px 24px", background: C.offWhite }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: 52 }}>
+        <div className="contact-grid" style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1.5fr", gap: 52 }}>
           {/* Info */}
-          <div>
+          <div className="contact-info">
             <h2 style={{ fontFamily: C.FD, fontSize: 40, color: C.navy, marginBottom: 8 }}>CONTACT INFORMATION</h2>
             <div style={{ width: 48, height: 4, background: C.orange, borderRadius: 2, marginBottom: 26 }} />
             <p style={{ color: C.gray, fontSize: 15, lineHeight: 1.82, marginBottom: 34 }}>Available Mon–Fri 7am–6pm, Sat 8am–3pm, and 24/7 for electrical emergencies.</p>
@@ -98,7 +122,7 @@ const ContactPage = () => {
                 { I: User, lbl: "Founder", val: "Tumelo Penny Rabopape", href: null },
                 { I: MapPin, lbl: "Coverage", val: "Gauteng & Nationwide", href: null },
               ].map((c, i) => (
-                <div key={i} style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
+                <div key={i} className="contact-info-item" style={{ display: "flex", gap: 14, alignItems: "flex-start" }}>
                   <div style={{ width: 44, height: 44, background: "rgba(240,125,0,0.1)", border: "1px solid rgba(240,125,0,0.2)", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}><c.I size={19} color={C.orange} /></div>
                   <div>
                     <div style={{ color: C.grayLight, fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, marginBottom: 2 }}>{c.lbl}</div>
@@ -107,7 +131,7 @@ const ContactPage = () => {
                 </div>
               ))}
             </div>
-            <div style={{ background: C.navy, borderRadius: 16, padding: "26px" }}>
+            <div className="service-areas" style={{ background: C.navy, borderRadius: 16, padding: "26px" }}>
               <h4 style={{ color: "white", fontWeight: 700, fontSize: 14, marginBottom: 12 }}>Service Areas</h4>
               <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
                 {["Johannesburg", "Pretoria", "Ekurhuleni", "Tshwane", "Centurion", "Midrand", "Sandton", "Soweto", "Nationwide"].map((a, i) => (
@@ -118,12 +142,12 @@ const ContactPage = () => {
           </div>
 
           {/* Form */}
-          <div style={{ background: "white", borderRadius: 24, padding: "44px", boxShadow: "0 8px 48px rgba(0,0,0,0.08)" }}>
+          <div className="contact-form" style={{ background: "white", borderRadius: 24, padding: "44px", boxShadow: "0 8px 48px rgba(0,0,0,0.08)" }}>
             <h2 style={{ fontFamily: C.FD, fontSize: 36, color: C.navy, marginBottom: 8 }}>SEND US A MESSAGE</h2>
             <div style={{ width: 48, height: 4, background: C.orange, borderRadius: 2, marginBottom: 28 }} />
             <ErrBox msg={err} />
             {!user && (
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              <div className="contact-form-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
                 <Field label="Full Name" value={form.name} onChange={f("name")} placeholder="Your full name" required />
                 <Field label="Email Address" type="email" value={form.email} onChange={f("email")} placeholder="your@email.com" required />
               </div>
