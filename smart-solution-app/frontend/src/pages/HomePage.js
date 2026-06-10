@@ -43,17 +43,26 @@ const HomePage = () => {
 
   return (
     <div>
+      <style>{`
+        @media (max-width: 768px) {
+          .hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+          .hero-visual { display: none !important; }
+          .why-us-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+          .hero-title { font-size: 48px !important; }
+        }
+      `}</style>
+
       {/* HERO */}
       <section style={{ background: `linear-gradient(135deg,${C.navy} 0%,${C.navyLight} 100%)`, minHeight: "92vh", display: "flex", alignItems: "center", position: "relative", overflow: "hidden" }}>
         <div style={{ position: "absolute", inset: 0, backgroundImage: `linear-gradient(rgba(240,125,0,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(240,125,0,0.04) 1px,transparent 1px)`, backgroundSize: "60px 60px" }} />
         <div style={{ position: "absolute", top: "15%", right: "8%", width: 500, height: 500, background: "radial-gradient(circle,rgba(240,125,0,0.13) 0%,transparent 65%)", pointerEvents: "none" }} />
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "80px 24px", width: "100%", position: "relative", zIndex: 1 }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 72, alignItems: "center" }}>
+          <div className="hero-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 72, alignItems: "center" }}>
             <div>
               <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(240,125,0,0.1)", border: "1px solid rgba(240,125,0,0.25)", borderRadius: 24, padding: "6px 16px", marginBottom: 28 }}>
                 <Zap size={12} color={C.orange} /><span style={{ color: C.orange, fontSize: 11, fontWeight: 700, letterSpacing: 2.5, textTransform: "uppercase" }}>Professional Electrical Services</span>
               </div>
-              <h1 style={{ fontFamily: C.FD, fontSize: 80, color: "white", lineHeight: 0.93, marginBottom: 24 }}>
+              <h1 className="hero-title" style={{ fontFamily: C.FD, fontSize: 80, color: "white", lineHeight: 0.93, marginBottom: 24 }}>
                 YOUR VISION,<br /><span style={{ color: C.orange }}>OUR ELECTRICAL</span><br />EXPERTISE
               </h1>
               <p style={{ color: "rgba(255,255,255,0.62)", fontSize: 17, lineHeight: 1.78, maxWidth: 480, marginBottom: 40 }}>
@@ -76,7 +85,7 @@ const HomePage = () => {
               </div>
             </div>
             {/* Decorative Visual */}
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <div className="hero-visual" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
               <div style={{ position: "relative", width: 380, height: 380 }}>
                 <div style={{ position: "absolute", inset: 0, borderRadius: "50%", border: "1px dashed rgba(240,125,0,0.18)" }} />
                 <div style={{ position: "absolute", inset: 38, borderRadius: "50%", border: "2px solid rgba(240,125,0,0.08)" }} />
@@ -138,7 +147,7 @@ const HomePage = () => {
 
       {/* WHY US */}
       <section style={{ padding: "88px 24px", background: `linear-gradient(135deg,${C.navy},${C.navyLight})` }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 72, alignItems: "center" }}>
+        <div className="why-us-grid" style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 72, alignItems: "center" }}>
           <div>
             <div style={{ color: C.orange, fontWeight: 700, fontSize: 12, letterSpacing: 3, textTransform: "uppercase", marginBottom: 16 }}>Why Choose Us</div>
             <h2 style={{ fontFamily: C.FD, fontSize: 54, color: "white", lineHeight: 0.95, marginBottom: 22 }}>THE SMART SOLUTION DIFFERENCE</h2>
