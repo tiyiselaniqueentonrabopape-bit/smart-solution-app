@@ -44,11 +44,56 @@ const HomePage = () => {
   return (
     <div>
       <style>{`
+        /* ========== MOBILE RESPONSIVE FIXES ========== */
         @media (max-width: 768px) {
-          .hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+          /* Hero section */
+          .hero-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
           .hero-visual { display: none !important; }
+          .hero-title { font-size: 42px !important; line-height: 1.05 !important; }
+
+          /* Hero text bigger */
+          .hero-desc { font-size: 16px !important; line-height: 1.7 !important; max-width: 100% !important; }
+
+          /* Buttons full width */
+          .hero-btn { width: 100% !important; font-size: 16px !important; padding: 16px !important; justify-content: center !important; }
+
+          /* Contact links bigger */
+          .contact-link { font-size: 15px !important; }
+
+          /* Stats cards */
+          .stats-grid { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+          .stats-grid > div { padding: 24px 12px !important; }
+          .stat-value { font-size: 38px !important; }
+          .stat-label { font-size: 11px !important; }
+
+          /* Services cards */
+          .svc-card { padding: 22px 18px !important; }
+          .svc-card h3 { font-size: 16px !important; }
+          .svc-card p { font-size: 14px !important; }
+
+          /* Why Us section */
           .why-us-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
-          .hero-title { font-size: 48px !important; }
+          .why-title { font-size: 36px !important; }
+          .why-desc { font-size: 15px !important; }
+          .feat-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
+          .feat-card h3 { font-size: 15px !important; }
+          .feat-card p { font-size: 13px !important; }
+
+          /* Testimonials */
+          .testi-text { font-size: 15px !important; }
+
+          /* CTA section */
+          .cta-title { font-size: 32px !important; }
+          .cta-desc { font-size: 16px !important; }
+          .cta-btn { width: 100% !important; font-size: 16px !important; padding: 16px !important; }
+
+          /* General text */
+          p { font-size: 15px !important; line-height: 1.7 !important; }
+          h2 { font-size: 32px !important; }
+          h3 { font-size: 18px !important; }
+
+          /* Section padding */
+          section { padding-left: 16px !important; padding-right: 16px !important; }
         }
       `}</style>
 
@@ -65,20 +110,20 @@ const HomePage = () => {
               <h1 className="hero-title" style={{ fontFamily: C.FD, fontSize: 80, color: "white", lineHeight: 0.93, marginBottom: 24 }}>
                 YOUR VISION,<br /><span style={{ color: C.orange }}>OUR ELECTRICAL</span><br />EXPERTISE
               </h1>
-              <p style={{ color: "rgba(255,255,255,0.62)", fontSize: 17, lineHeight: 1.78, maxWidth: 480, marginBottom: 40 }}>
+              <p className="hero-desc" style={{ color: "rgba(255,255,255,0.62)", fontSize: 17, lineHeight: 1.78, maxWidth: 480, marginBottom: 40 }}>
                 South Africa's trusted electrical contractor. From residential wiring and solar systems to industrial PLC automation — we power your world with precision and professionalism.
               </p>
               <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 48 }}>
-                <button onClick={() => navigate('/contact')} style={{ background: C.orange, color: "white", border: "none", padding: "14px 32px", borderRadius: 10, fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: C.FB, display: "flex", alignItems: "center", gap: 8 }}>
+                <button className="hero-btn" onClick={() => navigate('/contact')} style={{ background: C.orange, color: "white", border: "none", padding: "14px 32px", borderRadius: 10, fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: C.FB, display: "flex", alignItems: "center", gap: 8 }}>
                   Get Free Quote <ArrowRight size={17} />
                 </button>
-                <button onClick={() => navigate('/services')} style={{ background: "transparent", color: "white", border: "2px solid rgba(255,255,255,0.22)", padding: "14px 32px", borderRadius: 10, fontSize: 16, fontWeight: 600, cursor: "pointer", fontFamily: C.FB }}>
+                <button className="hero-btn" onClick={() => navigate('/services')} style={{ background: "transparent", color: "white", border: "2px solid rgba(255,255,255,0.22)", padding: "14px 32px", borderRadius: 10, fontSize: 16, fontWeight: 600, cursor: "pointer", fontFamily: C.FB }}>
                   Our Services
                 </button>
               </div>
               <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
                 {[{ I: Phone, v: "+27 79 333 4957", h: "tel:+27793334957" }, { I: Mail, v: "pennytumelo@gmail.com", h: "mailto:pennytumelo@gmail.com" }].map((c, i) => (
-                  <a key={i} href={c.h} style={{ color: "rgba(255,255,255,0.6)", fontSize: 14, textDecoration: "none", display: "flex", alignItems: "center", gap: 10 }}>
+                  <a key={i} href={c.h} className="contact-link" style={{ color: "rgba(255,255,255,0.6)", fontSize: 14, textDecoration: "none", display: "flex", alignItems: "center", gap: 10 }}>
                     <div style={{ width: 32, height: 32, background: "rgba(240,125,0,0.12)", border: "1px solid rgba(240,125,0,0.25)", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}><c.I size={14} color={C.orange} /></div>{c.v}
                   </a>
                 ))}
@@ -112,11 +157,11 @@ const HomePage = () => {
 
       {/* STATS */}
       <section style={{ background: C.offWhite, padding: "60px 24px" }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))", gap: 20 }}>
+        <div className="stats-grid" style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))", gap: 20 }}>
           {[["10+", "Years Experience"], ["150+", "Solved electrical Problems"], ["200+", "Happy Clients"], ["100%", "Quality Guarantee"]].map(([v, l], i) => (
             <div key={i} style={{ background: "white", borderRadius: 16, padding: "32px 20px", textAlign: "center", boxShadow: "0 2px 16px rgba(0,0,0,0.05)", borderBottom: `4px solid ${C.orange}` }}>
-              <div style={{ fontFamily: C.FD, fontSize: 56, color: C.orange, lineHeight: 1 }}>{v}</div>
-              <div style={{ color: C.navy, fontWeight: 700, fontSize: 13, marginTop: 8, textTransform: "uppercase", letterSpacing: 1 }}>{l}</div>
+              <div className="stat-value" style={{ fontFamily: C.FD, fontSize: 56, color: C.orange, lineHeight: 1 }}>{v}</div>
+              <div className="stat-label" style={{ color: C.navy, fontWeight: 700, fontSize: 13, marginTop: 8, textTransform: "uppercase", letterSpacing: 1 }}>{l}</div>
             </div>
           ))}
         </div>
@@ -150,17 +195,17 @@ const HomePage = () => {
         <div className="why-us-grid" style={{ maxWidth: 1280, margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 72, alignItems: "center" }}>
           <div>
             <div style={{ color: C.orange, fontWeight: 700, fontSize: 12, letterSpacing: 3, textTransform: "uppercase", marginBottom: 16 }}>Why Choose Us</div>
-            <h2 style={{ fontFamily: C.FD, fontSize: 54, color: "white", lineHeight: 0.95, marginBottom: 22 }}>THE SMART SOLUTION DIFFERENCE</h2>
-            <p style={{ color: "rgba(255,255,255,0.6)", fontSize: 16, lineHeight: 1.85, marginBottom: 34 }}>
+            <h2 className="why-title" style={{ fontFamily: C.FD, fontSize: 54, color: "white", lineHeight: 0.95, marginBottom: 22 }}>THE SMART SOLUTION DIFFERENCE</h2>
+            <p className="why-desc" style={{ color: "rgba(255,255,255,0.6)", fontSize: 16, lineHeight: 1.85, marginBottom: 34 }}>
               Led by founder Tumelo Penny Rabopape, Smart Solution brings over a decade of electrical expertise, precision craftsmanship, and an unwavering commitment to safety.
             </p>
             <button onClick={() => navigate('/about')} style={{ background: "transparent", color: "white", border: `2px solid ${C.orange}`, padding: "12px 26px", borderRadius: 10, fontSize: 15, fontWeight: 600, cursor: "pointer", fontFamily: C.FB, display: "inline-flex", alignItems: "center", gap: 8 }}>
               Learn About Us <ArrowRight size={16} />
             </button>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
+          <div className="feat-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
             {feats.map((f, i) => (
-              <div key={i} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 16, padding: "24px 20px" }}>
+              <div key={i} className="feat-card" style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.07)", borderRadius: 16, padding: "24px 20px" }}>
                 <div style={{ width: 46, height: 46, background: "rgba(240,125,0,0.15)", borderRadius: 12, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 14 }}>
                   <f.I size={22} color={C.orange} />
                 </div>
@@ -182,7 +227,7 @@ const HomePage = () => {
                 <div style={{ display: "flex", gap: 3, marginBottom: 16 }}>
                   {[...Array(t.rating)].map((_, j) => <Star key={j} size={15} color={C.orange} fill={C.orange} />)}
                 </div>
-                <p style={{ color: C.gray, fontSize: 15, lineHeight: 1.8, fontStyle: "italic", marginBottom: 20 }}>"{t.text}"</p>
+                <p className="testi-text" style={{ color: C.gray, fontSize: 15, lineHeight: 1.8, fontStyle: "italic", marginBottom: 20 }}>"{t.text}"</p>
                 <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: 16 }}>
                   <div style={{ color: C.navy, fontWeight: 700, fontSize: 14 }}>{t.name}</div>
                   <div style={{ color: C.orange, fontSize: 12, fontWeight: 600, marginTop: 2 }}>{t.role}</div>
@@ -201,11 +246,11 @@ const HomePage = () => {
             <div style={{ position: "absolute", bottom: -50, left: -50, width: 220, height: 220, background: "rgba(255,255,255,0.06)", borderRadius: "50%" }} />
             <div style={{ position: "relative", zIndex: 1 }}>
               <Zap size={50} color="white" style={{ marginBottom: 18 }} />
-              <h2 style={{ fontFamily: C.FD, fontSize: 54, color: "white", marginBottom: 14 }}>READY TO POWER YOUR PROJECT?</h2>
-              <p style={{ color: "rgba(255,255,255,0.9)", fontSize: 18, marginBottom: 36, maxWidth: 500, margin: "0 auto 36px" }}>Get a free consultation and quote from our expert team. Fast response guaranteed.</p>
+              <h2 className="cta-title" style={{ fontFamily: C.FD, fontSize: 54, color: "white", marginBottom: 14 }}>READY TO POWER YOUR PROJECT?</h2>
+              <p className="cta-desc" style={{ color: "rgba(255,255,255,0.9)", fontSize: 18, marginBottom: 36, maxWidth: 500, margin: "0 auto 36px" }}>Get a free consultation and quote from our expert team. Fast response guaranteed.</p>
               <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
-                <button onClick={() => navigate('/contact')} style={{ background: "white", color: C.orange, border: "none", padding: "13px 32px", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: C.FB }}>Request a Quote</button>
-                <a href="tel:+27793334957" style={{ background: "transparent", color: "white", border: "2px solid white", padding: "13px 32px", borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none", display: "flex", alignItems: "center", gap: 8 }}><Phone size={15} /> Call Now</a>
+                <button className="cta-btn" onClick={() => navigate('/contact')} style={{ background: "white", color: C.orange, border: "none", padding: "13px 32px", borderRadius: 10, fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: C.FB }}>Request a Quote</button>
+                <a className="cta-btn" href="tel:+27793334957" style={{ background: "transparent", color: "white", border: "2px solid white", padding: "13px 32px", borderRadius: 10, fontSize: 15, fontWeight: 600, textDecoration: "none", display: "flex", alignItems: "center", gap: 8 }}><Phone size={15} /> Call Now</a>
               </div>
             </div>
           </div>
