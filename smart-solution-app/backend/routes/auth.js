@@ -69,15 +69,22 @@ router.post('/register', async (req, res) => {
     });
 
     // Send OTP to email
-    await sendEmailOTP(email, otp, name);
+    try {
+      await sendEmailOTP(email, otp, name);
+      console.log('OTP email sent successfully to:', email);
+    } catch (emailError) {
+      console.error('Failed to send OTP email:', emailError.message);
+      pendingUsers.delete(email.toLowerCase());
+      return res.status(500).json({ message: 'Failed to send verification email. Please try again.' });
+    }
 
     res.json({ message: 'Verification code sent to your email', email: email.toLowerCase() });
 
-} catch (error) {
+  } catch (error) {
     console.error('Register error:', error.message);
-    console.error('Full error:', error);
     res.status(500).json({ message: error.message || 'Registration failed' });
-}
+  }
+});
 
 // @route   POST /api/auth/verify-email
 // @desc    Step 2: Verify OTP, create account with password
@@ -130,8 +137,8 @@ router.post('/verify-email', async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Verify error:', error);
-    res.status(500).json({ message: 'Verification failed' });
+    console.error('Verify error:', error.message);
+    res.status(500).json({ message: error.message || 'Verification failed' });
   }
 });
 
@@ -151,11 +158,19 @@ router.post('/resend-otp', async (req, res) => {
     pending.otp = otp;
     pending.otpExpire = Date.now() + 10 * 60 * 1000;
 
-    await sendEmailOTP(email, otp, pending.name);
+    try {
+      await sendEmailOTP(email, otp, pending.name);
+      console.log('Resent OTP to:', email);
+    } catch (emailError) {
+      console.error('Failed to resend OTP:', emailError.message);
+      return res.status(500).json({ message: 'Failed to resend code. Please try again.' });
+    }
+
     res.json({ message: 'New code sent to your email' });
 
   } catch (error) {
-    res.status(500).json({ message: 'Failed to resend code' });
+    console.error('Resend error:', error.message);
+    res.status(500).json({ message: error.message || 'Failed to resend code' });
   }
 });
 
@@ -201,8 +216,8 @@ router.post('/login', async (req, res) => {
       res.status(401).json({ message: 'Invalid credentials' });
     }
   } catch (error) {
-    console.error('Login error:', error);
-    res.status(500).json({ message: 'Login failed' });
+    console.error('Login error:', error.message);
+    res.status(500).json({ message: error.message || 'Login failed' });
   }
 });
 
