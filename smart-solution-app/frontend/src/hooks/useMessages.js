@@ -1,6 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 export const useMessages = () => {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -9,7 +11,7 @@ export const useMessages = () => {
   const fetchAllMessages = useCallback(async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get('/api/messages');
+      const { data } = await axios.get(`${API_URL}/api/messages`);
       setMessages(data);
       setError(null);
     } catch (err) {
@@ -22,7 +24,7 @@ export const useMessages = () => {
   const fetchMyMessages = useCallback(async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get('/api/messages/my');
+      const { data } = await axios.get(`${API_URL}/api/messages/my`);
       setMessages(data);
       setError(null);
     } catch (err) {
@@ -34,7 +36,7 @@ export const useMessages = () => {
 
   const submitRequest = async (formData) => {
     try {
-      const { data } = await axios.post('/api/messages', formData);
+      const { data } = await axios.post(`${API_URL}/api/messages`, formData);
       setMessages(prev => [data, ...prev]);
       return { success: true };
     } catch (err) {
@@ -44,7 +46,7 @@ export const useMessages = () => {
 
   const updateStatus = async (id, status) => {
     try {
-      const { data } = await axios.put(`/api/messages/${id}/status`, { status });
+      const { data } = await axios.put(`${API_URL}/api/messages/${id}/status`, { status });
       setMessages(prev => prev.map(m => m._id === id ? data : m));
       return { success: true };
     } catch (err) {
@@ -54,7 +56,7 @@ export const useMessages = () => {
 
   const deleteMessage = async (id) => {
     try {
-      await axios.delete(`/api/messages/${id}`);
+      await axios.delete(`${API_URL}/api/messages/${id}`);
       setMessages(prev => prev.filter(m => m._id !== id));
       return { success: true };
     } catch (err) {
@@ -64,7 +66,7 @@ export const useMessages = () => {
 
   const addNote = async (id, adminNote) => {
     try {
-      const { data } = await axios.put(`/api/messages/${id}/note`, { adminNote });
+      const { data } = await axios.put(`${API_URL}/api/messages/${id}/note`, { adminNote });
       setMessages(prev => prev.map(m => m._id === id ? data : m));
       return { success: true };
     } catch (err) {

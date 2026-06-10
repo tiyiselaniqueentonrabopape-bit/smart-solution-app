@@ -9,7 +9,7 @@ export const useUsers = () => {
   const fetchUsers = useCallback(async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get('/api/users');
+      const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/users`);
       setUsers(data);
       setError(null);
     } catch (err) {
