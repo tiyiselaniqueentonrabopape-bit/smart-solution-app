@@ -73,11 +73,11 @@ router.post('/register', async (req, res) => {
 
     res.json({ message: 'Verification code sent to your email', email: email.toLowerCase() });
 
-  } catch (error) {
-    console.error('Register error:', error);
-    res.status(500).json({ message: 'Registration failed' });
-  }
-});
+} catch (error) {
+    console.error('Register error:', error.message);
+    console.error('Full error:', error);
+    res.status(500).json({ message: error.message || 'Registration failed' });
+}
 
 // @route   POST /api/auth/verify-email
 // @desc    Step 2: Verify OTP, create account with password
