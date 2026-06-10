@@ -3,7 +3,7 @@ import { useAuth } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Toast from './components/Toast';
-import WhatsAppButton from './components/WhatsAppButton';  // ← ADD THIS LINE
+import WhatsAppButton from './components/WhatsAppButton';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ServicesPage from './pages/ServicesPage';
@@ -41,10 +41,28 @@ function App() {
   const [toast, setToast] = useState(null);
 
   return (
-    <div style={{ fontFamily: C.FB, background: C.offWhite, minHeight: "100vh" }}>
+    <div style={{ fontFamily: C.FB, background: C.offWhite, minHeight: "100vh", width: "100%", maxWidth: "100%", overflowX: "hidden" }}>
       <style>{`
         @keyframes slideDown { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: translateY(0); } }
         .svc-card:hover { transform: translateY(-7px) !important; box-shadow: 0 22px 52px rgba(240,125,0,0.16) !important; border-color: rgba(240,125,0,0.35) !important; }
+
+        /* ========== MOBILE FULL WIDTH FIX ========== */
+        * { box-sizing: border-box; }
+        html, body, #root { 
+          width: 100% !important; 
+          max-width: 100% !important; 
+          margin: 0 !important; 
+          padding: 0 !important;
+          overflow-x: hidden;
+        }
+        @media (max-width: 768px) {
+          [style*="max-width"] { max-width: 100% !important; }
+          [style*="width: 50%"] { width: 100% !important; }
+          [style*="width: 600px"] { width: 100% !important; }
+          [style*="width: 500px"] { width: 100% !important; }
+          [style*="width: 400px"] { width: 100% !important; }
+          section, div { max-width: 100vw !important; }
+        }
       `}</style>
 
       {toast && <Toast message={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
@@ -64,7 +82,7 @@ function App() {
       </Routes>
 
       <Footer />
-      <WhatsAppButton />  {/* ← ADD THIS LINE */}
+      <WhatsAppButton />
     </div>
   );
 }
